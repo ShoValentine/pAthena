@@ -9756,3 +9756,14 @@ Body:
       NoBanishingBuster: true
       NoDispell: true
       NoClearance: true
+  - Status: Overcoming_Crisis
+    Icon: EFST_OVERCOMING_CRISIS
+    DurationLookup: HN_OVERCOMING_CRISIS
+    CalcFlags:
+      Patk: true
+      Smatk: true
+      MaxHp: true
+    Flags:
+      NoBanishingBuster: true
+      NoDispell: true
+      NoClearance: true
