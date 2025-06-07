@@ -3332,6 +3332,17 @@ struct weapon_atk {
 
 ///For holding basic status (which can be modified by status changes)
 struct status_data {
+
+	unsigned int
+		hp, sp, ap, // see status_cpy before adding members before hp and sp
+		max_hp, max_sp, max_ap;
+       float
+               str, agi, vit, int_, dex, luk,
+               pow, sta, wis, spl, con, crt,
+               eatk;
+	unsigned short
+		batk,
+=======
 	// see status_cpy before adding members before hp and sp
 	uint32 hp;
 	uint32 sp;
@@ -3345,6 +3356,7 @@ struct status_data {
 		eatk;
 	int32 batk;
 	uint16
+
 #ifdef RENEWAL
 		watk,
 		watk2,

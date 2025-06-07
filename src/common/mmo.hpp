@@ -592,9 +592,14 @@ struct mmo_charstatus {
 	uint8 body_direction;
 
 	char name[NAME_LENGTH];
+	unsigned int base_level,job_level;
+       float str, agi, vit, int_, dex, luk;
+	unsigned short pow,sta,wis,spl,con,crt;
+=======
 	uint32 base_level,job_level;
 	uint16 str,agi,vit,int_,dex,luk;
 	uint16 pow,sta,wis,spl,con,crt;
+
 	unsigned char slot,sex;
 
 	uint32 mapip;
