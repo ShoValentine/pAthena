@@ -3160,10 +3160,10 @@ struct status_data {
 	unsigned int
 		hp, sp, ap, // see status_cpy before adding members before hp and sp
 		max_hp, max_sp, max_ap;
-	short
-		str, agi, vit, int_, dex, luk,
-		pow, sta, wis, spl, con, crt,
-		eatk;
+       float
+               str, agi, vit, int_, dex, luk,
+               pow, sta, wis, spl, con, crt,
+               eatk;
 	unsigned short
 		batk,
 #ifdef RENEWAL

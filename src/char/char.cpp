@@ -25,6 +25,7 @@
 #include <common/strlib.hpp>
 #include <common/timer.hpp>
 #include <common/utilities.hpp>
+#include <common/utils.hpp>
 
 #include "char_clif.hpp"
 #include "char_cnslif.hpp"
@@ -304,7 +305,7 @@ int char_mmo_char_tosql(uint32 char_id, struct mmo_charstatus* p){
 		if( SQL_ERROR == Sql_Query(sql_handle, "UPDATE `%s` SET `base_level`='%d', `job_level`='%d',"
 			"`base_exp`='%" PRIu64 "', `job_exp`='%" PRIu64 "', `zeny`='%d',"
 			"`max_hp`='%u',`hp`='%u',`max_sp`='%u',`sp`='%u',`status_point`='%d',`skill_point`='%d',"
-			"`str`='%d',`agi`='%d',`vit`='%d',`int`='%d',`dex`='%d',`luk`='%d',"
+                       "`str`='%f',`agi`='%f',`vit`='%f',`int`='%f',`dex`='%f',`luk`='%f',"
 			"`option`='%d',`party_id`='%d',`guild_id`='%d',`pet_id`='%d',`homun_id`='%d',`elemental_id`='%d',"
 			"`weapon`='%d',`shield`='%d',`head_top`='%d',`head_mid`='%d',`head_bottom`='%d',"
 			"`last_map`='%s',`last_x`='%d',`last_y`='%d',`last_instanceid`='%d',"
@@ -948,12 +949,12 @@ int char_mmo_chars_fromsql(struct char_session_data* sd, uint8* buf, uint8* coun
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 6,  SQLDT_UINT64, &p.base_exp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 7,  SQLDT_UINT64, &p.job_exp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 8,  SQLDT_INT,    &p.zeny, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 9,  SQLDT_SHORT,  &p.str, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 10, SQLDT_SHORT,  &p.agi, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 11, SQLDT_SHORT,  &p.vit, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 12, SQLDT_SHORT,  &p.int_, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 13, SQLDT_SHORT,  &p.dex, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 14, SQLDT_SHORT,  &p.luk, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 9,  SQLDT_FLOAT,  &p.str, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 10, SQLDT_FLOAT,  &p.agi, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 11, SQLDT_FLOAT,  &p.vit, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 12, SQLDT_FLOAT,  &p.int_, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 13, SQLDT_FLOAT,  &p.dex, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 14, SQLDT_FLOAT,  &p.luk, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 15, SQLDT_UINT,   &p.max_hp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 16, SQLDT_UINT,   &p.hp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 17, SQLDT_UINT,   &p.max_sp, 0, nullptr, nullptr)
@@ -1075,12 +1076,12 @@ int char_mmo_char_fromsql(uint32 char_id, struct mmo_charstatus* p, bool load_ev
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 7,  SQLDT_UINT64, &p->base_exp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 8,  SQLDT_UINT64, &p->job_exp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 9,  SQLDT_INT,    &p->zeny, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 10, SQLDT_SHORT,  &p->str, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 11, SQLDT_SHORT,  &p->agi, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 12, SQLDT_SHORT,  &p->vit, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 13, SQLDT_SHORT,  &p->int_, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 14, SQLDT_SHORT,  &p->dex, 0, nullptr, nullptr)
-	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 15, SQLDT_SHORT,  &p->luk, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 10, SQLDT_FLOAT,  &p->str, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 11, SQLDT_FLOAT,  &p->agi, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 12, SQLDT_FLOAT,  &p->vit, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 13, SQLDT_FLOAT,  &p->int_, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 14, SQLDT_FLOAT,  &p->dex, 0, nullptr, nullptr)
+	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 15, SQLDT_FLOAT,  &p->luk, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 16, SQLDT_UINT,   &p->max_hp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 17, SQLDT_UINT,   &p->hp, 0, nullptr, nullptr)
 	||	SQL_ERROR == SqlStmt_BindColumn(stmt, 18, SQLDT_UINT,   &p->max_sp, 0, nullptr, nullptr)
@@ -1495,9 +1496,9 @@ int char_make_new_char( struct char_session_data* sd, char* name_, int str, int 
 
 	// validation success, log result
 	if (charserv_config.log_char) {
-		if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `%s` (`time`, `char_msg`,`account_id`,`char_num`,`name`,`str`,`agi`,`vit`,`int`,`dex`,`luk`,`hair`,`hair_color`)"
-			"VALUES (NOW(), '%s', '%d', '%d', '%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d')",
-			schema_config.charlog_db, "make new char", sd->account_id, slot, esc_name, str, agi, vit, int_, dex, luk, hair_style, hair_color) )
+               if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `%s` (`time`, `char_msg`,`account_id`,`char_num`,`name`,`str`,`agi`,`vit`,`int`,`dex`,`luk`,`hair`,`hair_color`)"
+                       "VALUES (NOW(), '%s', '%d', '%d', '%s', '%f', '%f', '%f', '%f', '%f', '%f', '%d', '%d')",
+                       schema_config.charlog_db, "make new char", sd->account_id, slot, esc_name, str, agi, vit, int_, dex, luk, hair_style, hair_color) )
 			Sql_ShowDebug(sql_handle);
 	}
 
@@ -1517,9 +1518,9 @@ int char_make_new_char( struct char_session_data* sd, char* name_, int str, int 
 #endif
 
 	//Insert the new char entry to the database
-	if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `%s` (`account_id`, `char_num`, `name`, `class`, `zeny`, `status_point`, `str`, `agi`, `vit`, `int`, `dex`, `luk`, `max_hp`, `hp`,"
+       if( SQL_ERROR == Sql_Query(sql_handle, "INSERT INTO `%s` (`account_id`, `char_num`, `name`, `class`, `zeny`, `status_point`, `str`, `agi`, `vit`, `int`, `dex`, `luk`, `max_hp`, `hp`,"
 		"`max_sp`, `sp`, `hair`, `hair_color`, `last_map`, `last_x`, `last_y`, `save_map`, `save_x`, `save_y`, `sex`, `last_instanceid`) VALUES ("
-		"'%d', '%d', '%s', '%d', '%d',  '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%u', '%u', '%u', '%u', '%d', '%d', '%s', '%d', '%d', '%s', '%d', '%d', '%c', '0')",
+               "'%d', '%d', '%s', '%d', '%d',  '%d', '%f', '%f', '%f', '%f', '%f', '%f', '%u', '%u', '%u', '%u', '%d', '%d', '%s', '%d', '%d', '%s', '%d', '%d', '%c', '0')",
 		schema_config.char_db, sd->account_id , slot, esc_name, start_job, charserv_config.start_zeny, status_points, str, agi, vit, int_, dex, luk,
 		(40 * (100 + vit)/100) , (40 * (100 + vit)/100 ),  (11 * (100 + int_)/100), (11 * (100 + int_)/100), hair_style, hair_color,
 		tmp_start_point[start_point_idx].map, tmp_start_point[start_point_idx].x, tmp_start_point[start_point_idx].y, tmp_start_point[start_point_idx].map, tmp_start_point[start_point_idx].x, tmp_start_point[start_point_idx].y, sex ) )
@@ -1837,12 +1838,12 @@ int char_mmo_char_tobuf(uint8* buffer, struct mmo_charstatus* p){
 	info->headpalette = p->hair_color;
 	info->bodypalette = p->clothes_color;
 	safestrncpy( info->name, p->name, NAME_LENGTH );
-	info->Str = (uint8)u16min( p->str, UINT8_MAX );
-	info->Agi = (uint8)u16min( p->agi, UINT8_MAX );
-	info->Vit = (uint8)u16min( p->vit, UINT8_MAX );
-	info->Int = (uint8)u16min( p->int_, UINT8_MAX );
-	info->Dex = (uint8)u16min( p->dex, UINT8_MAX );
-	info->Luk = (uint8)u16min( p->luk, UINT8_MAX );
+       info->Str = (uint8)cap_value(static_cast<int>(p->str), 0, UINT8_MAX);
+       info->Agi = (uint8)cap_value(static_cast<int>(p->agi), 0, UINT8_MAX);
+       info->Vit = (uint8)cap_value(static_cast<int>(p->vit), 0, UINT8_MAX);
+       info->Int = (uint8)cap_value(static_cast<int>(p->int_), 0, UINT8_MAX);
+       info->Dex = (uint8)cap_value(static_cast<int>(p->dex), 0, UINT8_MAX);
+       info->Luk = (uint8)cap_value(static_cast<int>(p->luk), 0, UINT8_MAX);
 	info->CharNum = p->slot;
 	info->hairColor = (uint8)u16min( p->hair_color, UINT8_MAX );
 	info->bIsChangedCharName = ( p->rename > 0 ) ? 0 : 1;
